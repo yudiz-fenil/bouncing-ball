@@ -8,8 +8,8 @@
         ],
         "createMethodName": "editorCreate",
         "sceneKey": "Preload",
-        "borderWidth": 1080,
-        "borderHeight": 1920
+        "borderWidth": 1920,
+        "borderHeight": 1080
     },
     "displayList": [
         {
@@ -19,8 +19,8 @@
             "components": [
                 "PreloadText"
             ],
-            "x": 540,
-            "y": 960,
+            "x": 960,
+            "y": 540,
             "originX": 0.5,
             "originY": 0.5,
             "text": "0%",
