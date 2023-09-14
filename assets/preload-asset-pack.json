@@ -1,6 +1,37 @@
 {
     "section1": {
-        "files": []
+        "files": [
+            {
+                "url": "assets/images/bg.png",
+                "type": "image",
+                "key": "bg"
+            },
+            {
+                "url": "assets/images/character.png",
+                "type": "image",
+                "key": "character"
+            },
+            {
+                "url": "assets/images/innerBar.png",
+                "type": "image",
+                "key": "innerBar"
+            },
+            {
+                "url": "assets/images/logo.png",
+                "type": "image",
+                "key": "logo"
+            },
+            {
+                "url": "src/prefabs/LogoPrefab.js",
+                "type": "script",
+                "key": "LogoPrefab"
+            },
+            {
+                "url": "assets/images/outerBar.png",
+                "type": "image",
+                "key": "outerBar"
+            }
+        ]
     },
     "meta": {
         "app": "Phaser Editor 2D - Asset Pack Editor",

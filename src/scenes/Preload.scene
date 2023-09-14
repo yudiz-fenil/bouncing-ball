@@ -13,6 +13,17 @@
     },
     "displayList": [
         {
+            "type": "Image",
+            "id": "127624ad-88b9-41d2-9914-b3ee7c6346e3",
+            "label": "bg",
+            "components": [],
+            "texture": {
+                "key": "bg"
+            },
+            "x": 960,
+            "y": 540
+        },
+        {
             "type": "Text",
             "id": "2ce42443-5227-4c9b-b498-e81f9a21cde3",
             "label": "progress",
@@ -27,6 +38,55 @@
             "align": "center",
             "fontSize": "100px",
             "fontStyle": "bold"
+        },
+        {
+            "type": "Image",
+            "id": "8ba1a252-3e05-4f66-98b3-3a58562a90a1",
+            "label": "outerBar",
+            "scope": "CLASS",
+            "components": [],
+            "texture": {
+                "key": "outerBar"
+            },
+            "x": 960,
+            "y": 961
+        },
+        {
+            "type": "Image",
+            "id": "515eb698-49cb-483b-ae24-0eac20cd0eb9",
+            "label": "innerBar",
+            "scope": "CLASS",
+            "components": [],
+            "texture": {
+                "key": "innerBar"
+            },
+            "x": 741,
+            "y": 951,
+            "originX": 0
+        },
+        {
+            "type": "Image",
+            "id": "3985bba9-13a1-4ab5-a5bb-25bcb3270502",
+            "label": "character",
+            "components": [],
+            "texture": {
+                "key": "character"
+            },
+            "x": 1032,
+            "y": 551
+        },
+        {
+            "prefabId": "a4ed4ec1-3532-4c9e-b772-a61465c89e61",
+            "id": "1f5c16ca-8c96-4bca-bfc0-037b887b2f5c",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "logoPrefab",
+            "components": [],
+            "x": 960,
+            "y": 470,
+            "nestedPrefabs": []
         }
     ],
     "plainObjects": [],

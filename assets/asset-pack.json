@@ -12,14 +12,79 @@
                 "key": "ball"
             },
             {
+                "url": "assets/images/ball-up.png",
+                "type": "image",
+                "key": "ball-up"
+            },
+            {
                 "url": "assets/images/block.png",
                 "type": "image",
                 "key": "block"
             },
             {
+                "url": "src/prefabs/BlockPrefab.js",
+                "type": "script",
+                "key": "BlockPrefab"
+            },
+            {
+                "url": "assets/images/buttons/btn_pause.png",
+                "type": "image",
+                "key": "btn_pause"
+            },
+            {
+                "url": "assets/images/buttons/btn_play.png",
+                "type": "image",
+                "key": "btn_play"
+            },
+            {
                 "url": "assets/images/fire.png",
                 "type": "image",
                 "key": "fire"
+            },
+            {
+                "url": "assets/images/block-particles/particle1.png",
+                "type": "image",
+                "key": "particle1"
+            },
+            {
+                "url": "assets/images/block-particles/particle2.png",
+                "type": "image",
+                "key": "particle2"
+            },
+            {
+                "url": "assets/images/block-particles/particle3.png",
+                "type": "image",
+                "key": "particle3"
+            },
+            {
+                "url": "assets/images/block-particles/particle4.png",
+                "type": "image",
+                "key": "particle4"
+            },
+            {
+                "url": "assets/images/block-particles/particle5.png",
+                "type": "image",
+                "key": "particle5"
+            },
+            {
+                "url": "assets/images/score_box.png",
+                "type": "image",
+                "key": "score_box"
+            },
+            {
+                "url": "assets/images/snow/snow1.png",
+                "type": "image",
+                "key": "snow1"
+            },
+            {
+                "url": "assets/images/snow/snow2.png",
+                "type": "image",
+                "key": "snow2"
+            },
+            {
+                "url": "assets/images/snow/snow3.png",
+                "type": "image",
+                "key": "snow3"
             }
         ]
     },
