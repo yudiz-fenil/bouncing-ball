@@ -27,14 +27,29 @@
                 "key": "BlockPrefab"
             },
             {
+                "url": "assets/images/buttons/btn_base.png",
+                "type": "image",
+                "key": "btn_base"
+            },
+            {
                 "url": "assets/images/buttons/btn_pause.png",
                 "type": "image",
                 "key": "btn_pause"
             },
             {
-                "url": "assets/images/buttons/btn_play.png",
+                "url": "assets/animations/character.json",
+                "type": "animation",
+                "key": "character"
+            },
+            {
+                "url": "assets/images/character-2.png",
                 "type": "image",
-                "key": "btn_play"
+                "key": "character-2"
+            },
+            {
+                "url": "assets/images/character-3.png",
+                "type": "image",
+                "key": "character-3"
             },
             {
                 "url": "assets/images/fire.png",
@@ -65,6 +80,16 @@
                 "url": "assets/images/block-particles/particle5.png",
                 "type": "image",
                 "key": "particle5"
+            },
+            {
+                "url": "assets/images/buttons/pause_icon.png",
+                "type": "image",
+                "key": "pause_icon"
+            },
+            {
+                "url": "assets/images/buttons/play_icon.png",
+                "type": "image",
+                "key": "play_icon"
             },
             {
                 "url": "assets/images/score_box.png",

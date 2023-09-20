@@ -13,7 +13,7 @@ class LogoPrefab extends Phaser.GameObjects.Container {
 		this.add(logo);
 
 		// ball
-		const ball = scene.add.image(-224, -8, "character");
+		const ball = scene.add.image(76, 13, "character");
 		this.add(ball);
 
 		this.ball = ball;
@@ -42,21 +42,30 @@ class LogoPrefab extends Phaser.GameObjects.Container {
 		// 	delay: this.time,
 		// 	callback: this.jumpToNextPosition,
 		// 	callbackScope: this,
-		// 	loop: true
+		// 	loop: true,
+
 		// });
 
-		// Create a timeline
 		// const timeline = this.scene.tweens.timeline({
 		// 	targets: this.ball,
 		// 	tweens: this.positions.map(pos => ({
 		// 		x: pos.x,
 		// 		y: pos.y,
 		// 		duration: 500,
-		// 		ease: 'Power1'
+		// 		// ease: 'Power1'
 		// 	})),
 		// 	repeat: -1,
 		// 	yoyo: true
 		// });
+
+		// this.scene.tweens.add({
+		// 	targets: this.ball,
+		// 	y: this.ball.y - 100,
+		// 	duration: 1000,
+		// 	repeat: -1,
+		// 	yoyo: true,
+		// })
+
 		/* END-USER-CTR-CODE */
 	}
 
@@ -66,30 +75,30 @@ class LogoPrefab extends Phaser.GameObjects.Container {
 	/* START-USER-CODE */
 
 	// Write your code here.
-	jumpToNextPosition() {
-		// if (this.isJumping) {
-		// 	return;
-		// }
+	// jumpToNextPosition() {
+	// 	// if (this.isJumping) {
+	// 	// 	return;
+	// 	// }
 
-		this.isJumping = true;
+	// 	this.isJumping = true;
 
-		let nextPositionIndex = (this.targetPositionIndex + 1) % this.positions.length;
-		let target = this.positions[nextPositionIndex];
+	// 	let nextPositionIndex = (this.targetPositionIndex + 1) % this.positions.length;
+	// 	let target = this.positions[nextPositionIndex];
 
-		this.scene.tweens.add({
-			targets: this.ball,
-			x: target.x,
-			y: target.y,
-			duration: this.time,
-			ease: 'Circ',
-			// yoyo: true,
-			onComplete: function () {
-				this.isJumping = false;
-			}
-		});
+	// 	this.scene.tweens.add({
+	// 		targets: this.ball,
+	// 		x: target.x,
+	// 		y: target.y,
+	// 		duration: this.time,
+	// 		ease: 'Circ',
+	// 		// yoyo: true,
+	// 		onComplete: function () {
+	// 			this.isJumping = false;
+	// 		}
+	// 	});
 
-		this.targetPositionIndex = nextPositionIndex;
-	}
+	// 	this.targetPositionIndex = nextPositionIndex;
+	// }
 
 	/* END-USER-CODE */
 }

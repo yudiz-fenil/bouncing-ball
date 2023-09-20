@@ -34,6 +34,7 @@
             "y": 540,
             "originX": 0.5,
             "originY": 0.5,
+            "visible": false,
             "text": "0%",
             "align": "center",
             "fontSize": "100px",
@@ -62,7 +63,8 @@
             },
             "x": 741,
             "y": 951,
-            "originX": 0
+            "originX": 0,
+            "visible": false
         },
         {
             "type": "Image",
@@ -85,8 +87,54 @@
             "label": "logoPrefab",
             "components": [],
             "x": 960,
-            "y": 470,
+            "y": 447,
             "nestedPrefabs": []
+        },
+        {
+            "type": "Text",
+            "id": "43b2fbb0-6b10-48d9-85d9-9acbb0ad96a1",
+            "label": "txt_progress",
+            "scope": "CLASS",
+            "components": [],
+            "x": 960,
+            "y": 950,
+            "originX": 0.5,
+            "originY": 0.5,
+            "text": "0%",
+            "align": "center",
+            "fontSize": "40px",
+            "fontStyle": "bold",
+            "color": "#000"
+        },
+        {
+            "type": "Image",
+            "id": "19b6b1c7-22c0-460e-a954-ea1aa79f503c",
+            "label": "btn_play",
+            "scope": "CLASS",
+            "components": [],
+            "texture": {
+                "key": "play-btn"
+            },
+            "x": 960,
+            "y": 950,
+            "visible": false
+        },
+        {
+            "type": "Text",
+            "id": "8e00c0d1-783f-4eb4-ae18-d4a25d512548",
+            "label": "btn_text",
+            "scope": "CLASS",
+            "components": [],
+            "x": 985,
+            "y": 947,
+            "originX": 0.5,
+            "originY": 0.5,
+            "visible": false,
+            "text": "PLAY",
+            "align": "center",
+            "fontSize": "45px",
+            "fontStyle": "bold",
+            "color": "#2f233A"
         }
     ],
     "plainObjects": [],

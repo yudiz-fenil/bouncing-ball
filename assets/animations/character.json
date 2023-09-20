@@ -1,0 +1,37 @@
+{
+    "anims": [
+        {
+            "key": "down",
+            "type": "frame",
+            "frames": [
+                {
+                    "key": "ball-up",
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "character-3",
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "character-2",
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "ball",
+                    "duration": 0,
+                    "keyframe": false
+                }
+            ],
+            "frameRate": 15,
+            "skipMissedFrames": true
+        }
+    ],
+    "globalTimeScale": 1,
+    "meta": {
+        "app": "Phaser Editor 2D v3",
+        "contentType": "Phaser v3 Animations"
+    }
+}

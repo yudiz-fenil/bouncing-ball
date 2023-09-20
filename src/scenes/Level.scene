@@ -25,6 +25,14 @@
         },
         {
             "type": "Container",
+            "id": "499c6107-98d6-4e59-b835-6931b705b205",
+            "label": "container_particles",
+            "scope": "CLASS",
+            "components": [],
+            "list": []
+        },
+        {
+            "type": "Container",
             "id": "0a96e81d-ba77-4c3a-9a43-4b5f2b484371",
             "label": "container_blocks",
             "scope": "CLASS",
@@ -57,7 +65,7 @@
                     "scope": "CLASS",
                     "components": [],
                     "texture": {
-                        "key": "btn_pause"
+                        "key": "btn_base"
                     },
                     "x": 1846,
                     "y": 66
@@ -72,11 +80,11 @@
                     "y": 123,
                     "originX": 0.5,
                     "originY": 0.5,
-                    "alpha": 0.5,
-                    "alphaTopLeft": 0.5,
-                    "alphaTopRight": 0.5,
-                    "alphaBottomLeft": 0.5,
-                    "alphaBottomRight": 0.5,
+                    "alpha": 0.7,
+                    "alphaTopLeft": 0.7,
+                    "alphaTopRight": 0.7,
+                    "alphaBottomLeft": 0.7,
+                    "alphaBottomRight": 0.7,
                     "fontSize": "150px",
                     "stroke": "#2f233A",
                     "strokeThickness": 5,
@@ -84,6 +92,18 @@
                     "shadow.offsetY": 2,
                     "shadow.stroke": true,
                     "shadow.blur": 5
+                },
+                {
+                    "type": "Image",
+                    "id": "b321ae9d-d67e-4e06-b897-77f7c3ec14c5",
+                    "label": "btn_icon",
+                    "scope": "CLASS",
+                    "components": [],
+                    "texture": {
+                        "key": "pause_icon"
+                    },
+                    "x": 1846,
+                    "y": 66
                 }
             ]
         },

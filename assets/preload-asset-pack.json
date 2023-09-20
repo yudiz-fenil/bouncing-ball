@@ -7,6 +7,11 @@
                 "key": "bg"
             },
             {
+                "url": "assets/images/buttons/btn_play.png",
+                "type": "image",
+                "key": "btn_play"
+            },
+            {
                 "url": "assets/images/character.png",
                 "type": "image",
                 "key": "character"
@@ -30,6 +35,11 @@
                 "url": "assets/images/outerBar.png",
                 "type": "image",
                 "key": "outerBar"
+            },
+            {
+                "url": "assets/images/play-btn.png",
+                "type": "image",
+                "key": "play-btn"
             }
         ]
     },
