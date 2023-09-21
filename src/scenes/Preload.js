@@ -40,13 +40,6 @@ class Preload extends Phaser.Scene {
 		innerBar.setOrigin(0, 0.5);
 		innerBar.visible = false;
 
-		// character
-		this.add.image(1032, 551, "character");
-
-		// logoPrefab
-		const logoPrefab = new LogoPrefab(this, 960, 447);
-		this.add.existing(logoPrefab);
-
 		// txt_progress
 		const txt_progress = this.add.text(960, 950, "", {});
 		txt_progress.setOrigin(0.5, 0.5);
@@ -54,15 +47,18 @@ class Preload extends Phaser.Scene {
 		txt_progress.setStyle({ "align": "center", "color": "#000", "fontSize": "40px", "fontStyle": "bold" });
 
 		// btn_play
-		const btn_play = this.add.image(960, 950, "play-btn");
+		const btn_play = this.add.image(960, 951, "play-btn");
 		btn_play.visible = false;
 
 		// btn_text
-		const btn_text = this.add.text(985, 947, "", {});
+		const btn_text = this.add.text(985, 948, "", {});
 		btn_text.setOrigin(0.5, 0.5);
 		btn_text.visible = false;
 		btn_text.text = "PLAY";
 		btn_text.setStyle({ "align": "center", "color": "#2f233A", "fontSize": "45px", "fontStyle": "bold" });
+
+		// logo_1
+		this.add.image(960, 447, "logo");
 
 		// progress (components)
 		new PreloadText(progress);
@@ -96,6 +92,18 @@ class Preload extends Phaser.Scene {
 		this.editorCreate();
 
 		this.editorPreload();
+
+		this.ball = this.physics.add.image(1035, 349, "character");
+		this.ball.body.setBounce(1);
+		this.ball.setOffset(0, -10)
+		this.ball.setOrigin(0.5, 1)
+
+		this.box = this.physics.add.image(1035, 585, "");
+		this.box.setVisible(false);
+		this.box.setSize(150, 160);
+		this.box.setImmovable();
+
+		this.physics.add.collider(this.box, this.ball)
 
 		this.btn_play.setInteractive().on('pointerdown', () => {
 			this.tweens.add({
@@ -163,6 +171,7 @@ class Preload extends Phaser.Scene {
 
 	update() {
 		if (this.isGameLoaded1 && this.isGameLoaded2) {
+			this.ball.setGravityY(250);
 			this.txt_progress.setVisible(false);
 			this.innerBar.setVisible(false);
 			this.outerBar.setVisible(false);

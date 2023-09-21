@@ -34,7 +34,21 @@
                         "key": "character"
                     },
                     "x": 76,
-                    "y": 13
+                    "y": 13,
+                    "originY": 1
+                },
+                {
+                    "type": "Rectangle",
+                    "id": "6d8e64e6-71aa-4ee8-95e8-6d63ae4f8a86",
+                    "label": "box",
+                    "scope": "CLASS",
+                    "components": [],
+                    "x": 82,
+                    "y": 126,
+                    "visible": false,
+                    "isFilled": true,
+                    "width": 128,
+                    "height": 128
                 }
             ]
         }

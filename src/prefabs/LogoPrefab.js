@@ -14,13 +14,36 @@ class LogoPrefab extends Phaser.GameObjects.Container {
 
 		// ball
 		const ball = scene.add.image(76, 13, "character");
+		ball.setOrigin(0.5, 1);
 		this.add(ball);
 
+		// box
+		const box = scene.add.rectangle(82, 126, 128, 128);
+		box.visible = false;
+		box.isFilled = true;
+		this.add(box);
+
 		this.ball = ball;
+		this.box = box;
 
 		/* START-USER-CTR-CODE */
 		// Write your code here.
 		this.scene = scene;
+		scene.physics.add.existing(this.ball);
+		scene.physics.add.existing(this.box, false);
+		// this.box.setImmovable(true);
+
+		this.ball.body.checkCollision.down = true;
+		this.ball.body.checkCollision.up = false;
+		this.ball.body.checkCollision.left = false;
+		this.ball.body.checkCollision.right = false;
+		this.ball.setGravityY(500);
+		this.ball.body.setBounce(0.9);
+		// this.ball.setSize(150, 160)
+		// this.ball.setOffset(60, 45)
+
+		scene.physics.add.collider(this.ball, this.box);
+
 		this.targetPositionIndex = 0;
 		this.isJumping = false;
 		this.time = 1000;
@@ -71,6 +94,8 @@ class LogoPrefab extends Phaser.GameObjects.Container {
 
 	/** @type {Phaser.GameObjects.Image} */
 	ball;
+	/** @type {Phaser.GameObjects.Rectangle} */
+	box;
 
 	/* START-USER-CODE */
 

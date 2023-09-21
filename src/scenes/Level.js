@@ -50,12 +50,15 @@ class Level extends Phaser.Scene {
 
 		// txt_message
 		const txt_message = this.add.text(960, 123, "", {});
+		txt_message.scaleX = 0;
+		txt_message.scaleY = 0;
 		txt_message.setOrigin(0.5, 0.5);
 		txt_message.alpha = 0.7;
 		txt_message.alphaTopLeft = 0.7;
 		txt_message.alphaTopRight = 0.7;
 		txt_message.alphaBottomLeft = 0.7;
 		txt_message.alphaBottomRight = 0.7;
+		txt_message.text = "Tap to Play!";
 		txt_message.setStyle({ "fontSize": "150px", "stroke": "#2f233A", "strokeThickness": 5, "shadow.offsetX": 2, "shadow.offsetY": 2, "shadow.blur": 5, "shadow.stroke": true });
 		container_header.add(txt_message);
 
@@ -171,7 +174,7 @@ class Level extends Phaser.Scene {
 			const emitter = particle.createEmitter({
 				x: xPos + 80 + (-50 * i),
 				y: yPos + 80 + (-(Math.random() * 25) * i),
-				speedX: this.isGameStart ? -this.nCurrentSpeed : 0,
+				speedX: this.isGameStart ? this.nCurrentSpeed : 0,
 				gravityY: 2000,
 				lifespan: 2000,
 				quantity: 1,
@@ -190,7 +193,7 @@ class Level extends Phaser.Scene {
 			targets: this.txt_message,
 			scaleX: 1,
 			scaleY: 1,
-			duration: 800,
+			duration: 900,
 			ease: 'Power3',
 			onComplete: () => {
 				this.txt_message.setScale(0, 0);
@@ -198,7 +201,7 @@ class Level extends Phaser.Scene {
 			}
 		})
 	}
-	iconAnimation = (key) => {
+	iconAnimation = (key, callback) => {
 		this.tweens.add({
 			targets: this.btn_icon,
 			scaleY: -1,
@@ -207,13 +210,15 @@ class Level extends Phaser.Scene {
 			ease: 'Power2',
 			onYoyo: () => {
 				this.btn_icon.setTexture(key);
+			},
+			onComplete: () => {
+				if (callback) callback();
 			}
 		})
 	}
 	gamePlayPause = () => {
 		if (this.isGamePause) {
 			// To Play Again
-			this.btn_pause.disableInteractive();
 			let second = 3;
 			this.showMessage(second);
 			const timer = setInterval(() => {
@@ -221,18 +226,19 @@ class Level extends Phaser.Scene {
 				if (second < 0) {
 					clearInterval(timer);
 					this.physics.resume();
-					this.btn_pause.setInteractive();
 					this.isGamePause = false;
-					this.platformGroup.setVelocityX(-this.nCurrentSpeed);
+					this.btn_pause.setInteractive();
+					if (this.isGameStart) this.platformGroup.setVelocityX(this.nCurrentSpeed);
 					return;
 				}
 				this.showMessage(second == 0 ? "JUMP!" : second);
 			}, 1000);
-			this.iconAnimation("pause_icon");
+			this.iconAnimation("pause_icon", null);
 		} else {
 			// To Pause
 			this.isGamePause = true;
-			this.iconAnimation("play_icon");
+			const callback = () => this.btn_pause.setInteractive();
+			this.iconAnimation("play_icon", callback);
 			this.physics.pause();
 		}
 	}
@@ -251,12 +257,22 @@ class Level extends Phaser.Scene {
 		this.fallSnowParticles();
 		this.isGameStart = false;
 		this.score = 0;
-		this.nCurrentSpeed = 600;
+		this.nCurrentSpeed = -600;
 		this.firstBounce = 0;
 		this.platformGroup = this.physics.add.group();
 		this.isGamePause = false;
-		this.showMessage("Let's GO!");
+		// this.showMessage("Tap to Play!");
+
+		this.tweens.add({
+			targets: this.txt_message,
+			scaleX: 1,
+			scaleY: 1,
+			duration: 900,
+			ease: 'Power3',
+		})
+
 		this.btn_pause.setInteractive().on("pointerdown", () => {
+			this.btn_pause.disableInteractive();
 			this.btnAnimation(this.btn_pause, this.gamePlayPause);
 		});
 
@@ -270,13 +286,17 @@ class Level extends Phaser.Scene {
 		this.ball.body.checkCollision.right = false;
 		this.ball.setGravityY(gameOptions.ballGravity);
 		this.ball.body.setBounce(0.9);
-		this.ball.setSize(80, 160)
+		this.ball.setSize(150, 160)
+		this.ball.setOffset(60, 45)
 		this.ball.setOrigin(0.5, 1)
 		this.container_character.add(this.ball);
 
 		this.input.on("pointerdown", (p, g) => {
 			if (!g.length) {
 				this.boost();
+			}
+			if (this.isGameStart) {
+				this.txt_message.setScale(0)
 			}
 		}, this);
 
@@ -352,8 +372,8 @@ class Level extends Phaser.Scene {
 			else {
 				this.ball.body.velocity.y = this.firstBounce;
 				if (this.isGameStart) {
-					this.nCurrentSpeed += 2;
-					this.platformGroup.setVelocityX(-this.nCurrentSpeed);
+					this.nCurrentSpeed -= 2;
+					this.platformGroup.setVelocityX(this.nCurrentSpeed);
 				}
 			}
 		}, null, this);
