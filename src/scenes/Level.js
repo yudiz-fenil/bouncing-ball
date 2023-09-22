@@ -104,6 +104,28 @@ class Level extends Phaser.Scene {
 	/* START-USER-CODE */
 
 	// Write more your code here
+	pointerOver = (scale) => {
+		this.input.setDefaultCursor('pointer');
+		this.tweens.add({
+			targets: [this.btn_pause, this.btn_icon],
+			scaleX: scale + 0.05,
+			scaleY: scale + 0.05,
+			duration: 50
+		})
+	}
+	pointerOut = (scale) => {
+		this.input.setDefaultCursor('default');
+		this.tweens.add({
+			targets: [this.btn_pause, this.btn_icon],
+			scaleX: scale,
+			scaleY: scale,
+			duration: 50,
+			onComplete: () => {
+				this.btn_pause.setScale(scale);
+				this.btn_icon.setScale(scale);
+			}
+		})
+	}
 	btnAnimation = (texture, callback) => {
 		const scale = texture.scale;
 		this.tweens.add({
@@ -244,6 +266,7 @@ class Level extends Phaser.Scene {
 	}
 	create() {
 		this.editorCreate();
+		this.input.setDefaultCursor('default');
 		this.aPlatformParticles = [
 			this.add.particles("particle1"),
 			this.add.particles("particle4"),
@@ -261,17 +284,21 @@ class Level extends Phaser.Scene {
 		this.firstBounce = 0;
 		this.platformGroup = this.physics.add.group();
 		this.isGamePause = false;
-		// this.showMessage("Tap to Play!");
+		this.isDown = false;
 
+		this.btn_pause.setInteractive();
+
+		this.btn_pause.on('pointerover', () => this.pointerOver(1));
+		this.btn_pause.on('pointerout', () => this.pointerOut(1));
 		this.tweens.add({
 			targets: this.txt_message,
 			scaleX: 1,
 			scaleY: 1,
 			duration: 900,
 			ease: 'Power3',
-		})
-
-		this.btn_pause.setInteractive().on("pointerdown", () => {
+		});
+		this.btn_pause.on("pointerdown", () => {
+			this.input.setDefaultCursor('pointer');
 			this.btn_pause.disableInteractive();
 			this.btnAnimation(this.btn_pause, this.gamePlayPause);
 		});
@@ -290,17 +317,19 @@ class Level extends Phaser.Scene {
 		this.ball.setOffset(60, 45)
 		this.ball.setOrigin(0.5, 1)
 		this.container_character.add(this.ball);
-
 		this.input.on("pointerdown", (p, g) => {
+			// if (!g.length && this.ball.y <= 700) {
 			if (!g.length) {
-				this.boost();
+				if (!this.isGameStart) {
+					this.boost();
+				} else if (this.ball.y <= 700) {
+					this.boost();
+				}
 			}
 			if (this.isGameStart) {
 				this.txt_message.setScale(0)
 			}
 		}, this);
-
-		// this.input.keyboard.on('keydown-SPACE', () => this.boost());
 
 		this.topScore = localStorage.getItem(gameOptions.localStorageName) == null ? 0 : localStorage.getItem(gameOptions.localStorageName);
 		this.scoreText = this.add.text(this.score_box.x, this.score_box.y, "", {
@@ -313,14 +342,12 @@ class Level extends Phaser.Scene {
 		this.container_header.add(this.scoreText);
 		this.updateScore(this.score);
 	}
-
 	boost = () => {
 		if (this.firstBounce != 0) {
 			this.isGameStart = true;
 			this.ball.body.velocity.y = gameOptions.ballPower;
 		}
 	}
-
 	getRightmostPlatform = (platform) => {
 		let rightmostPlatform = 0;
 		this.platformGroup.getChildren().forEach((platform) => {
@@ -329,12 +356,10 @@ class Level extends Phaser.Scene {
 		platform.clearTint();
 		return rightmostPlatform;
 	}
-
 	updateScore = (n) => {
 		this.score += n;
 		this.scoreText.text = "SCORE: " + this.score + "\nBEST: " + this.topScore;
 	}
-	isDown = false;
 	playAnimation = () => {
 		if (this.isDown) {
 			this.isDown = false;
@@ -358,12 +383,11 @@ class Level extends Phaser.Scene {
 				scaleY: 1,
 				duration: 200,
 			})
-			this.fallBlockParticles(ball.x, ball.y);
+			this.fallBlockParticles(platform.x, platform.y);
 			this.tweens.add({
 				targets: platform,
 				y: platform.y + 10,
 				duration: 200,
-				ease: 'Bounce',
 				yoyo: true,
 			});
 			if (this.firstBounce == 0) {
@@ -373,11 +397,11 @@ class Level extends Phaser.Scene {
 				this.ball.body.velocity.y = this.firstBounce;
 				if (this.isGameStart) {
 					this.nCurrentSpeed -= 2;
-					this.platformGroup.setVelocityX(this.nCurrentSpeed);
 				}
 			}
 		}, null, this);
 		if (this.isGameStart && !this.isGamePause) {
+			this.platformGroup.setVelocityX(this.nCurrentSpeed);
 			this.background.tilePositionX += 3;
 		}
 		this.platformGroup.getChildren().forEach((platform) => {

@@ -86,6 +86,28 @@ class Preload extends Phaser.Scene {
 	/* START-USER-CODE */
 
 	// Write your code here
+	pointerOver = () => {
+		this.input.setDefaultCursor('pointer');
+		this.tweens.add({
+			targets: [this.btn_play, this.btn_text],
+			scaleX: 1.05,
+			scaleY: 1.05,
+			duration: 50
+		})
+	}
+	pointerOut = () => {
+		this.input.setDefaultCursor('default');
+		this.tweens.add({
+			targets: [this.btn_play, this.btn_text],
+			scaleX: 1,
+			scaleY: 1,
+			duration: 50,
+			onComplete: () => {
+				this.btn_play.setScale(1);
+				this.btn_text.setScale(1);
+			}
+		})
+	}
 
 	preload() {
 
@@ -120,6 +142,9 @@ class Preload extends Phaser.Scene {
 				}
 			});
 		})
+
+		this.btn_play.setInteractive().on('pointerover', () => this.pointerOver());
+		this.btn_play.setInteractive().on('pointerout', () => this.pointerOut());
 
 		this.isGameLoaded1 = false;
 		this.isGameLoaded2 = false;
@@ -172,11 +197,13 @@ class Preload extends Phaser.Scene {
 	update() {
 		if (this.isGameLoaded1 && this.isGameLoaded2) {
 			this.ball.setGravityY(250);
-			this.txt_progress.setVisible(false);
-			this.innerBar.setVisible(false);
-			this.outerBar.setVisible(false);
-			this.btn_play.setVisible(true);
-			this.btn_text.setVisible(true);
+			setTimeout(() => {
+				this.txt_progress.setVisible(false);
+				this.innerBar.setVisible(false);
+				this.outerBar.setVisible(false);
+				this.btn_play.setVisible(true);
+				this.btn_text.setVisible(true);
+			}, 200);
 		}
 	}
 
