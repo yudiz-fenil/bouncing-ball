@@ -17,9 +17,23 @@
                 "key": "character"
             },
             {
+                "url": [
+                    "assets/sounds/click.mp3"
+                ],
+                "type": "audio",
+                "key": "click"
+            },
+            {
                 "url": "assets/images/innerBar.png",
                 "type": "image",
                 "key": "innerBar"
+            },
+            {
+                "url": [
+                    "assets/sounds/jump.mp3"
+                ],
+                "type": "audio",
+                "key": "jump"
             },
             {
                 "url": "assets/images/logo.png",
@@ -40,6 +54,11 @@
                 "url": "assets/images/play-btn.png",
                 "type": "image",
                 "key": "play-btn"
+            },
+            {
+                "url": "src/scripts/SoundManager.js",
+                "type": "script",
+                "key": "SoundManager"
             }
         ]
     },

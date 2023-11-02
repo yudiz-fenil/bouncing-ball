@@ -27,10 +27,6 @@ class Level extends Phaser.Scene {
 	/** @returns {void} */
 	editorCreate() {
 
-		// background
-		const background = this.add.tileSprite(0, 0, 1920, 1080, "background");
-		background.setOrigin(0, 0);
-
 		// container_particles
 		const container_particles = this.add.container(0, 0);
 
@@ -69,7 +65,6 @@ class Level extends Phaser.Scene {
 		// container_character
 		const container_character = this.add.container(0, 0);
 
-		this.background = background;
 		this.container_particles = container_particles;
 		this.container_blocks = container_blocks;
 		this.container_header = container_header;
@@ -82,8 +77,6 @@ class Level extends Phaser.Scene {
 		this.events.emit("scene-awake");
 	}
 
-	/** @type {Phaser.GameObjects.TileSprite} */
-	background;
 	/** @type {Phaser.GameObjects.Container} */
 	container_particles;
 	/** @type {Phaser.GameObjects.Container} */
@@ -156,9 +149,10 @@ class Level extends Phaser.Scene {
 		const particles1 = this.add.particles('snow1');
 		const particles2 = this.add.particles('snow2');
 		const particles3 = this.add.particles('snow3');
-		const deathZone = new Phaser.Geom.Rectangle(0, 1080, 1920, 10);
+		const deathZone = new Phaser.Geom.Rectangle(0, this.cameras.main.height, this.cameras.main.width, 10);
 		const emitter1 = particles1.createEmitter({
-			x: { min: 0, max: 1920 * 2 },
+			x: { min: 0, max: this.cameras.main.width * 2 },
+			y: { min: 0, max: this.cameras.main.height / 2 },
 			lifespan: 20000,
 			speedX: { min: -300, max: -200 },
 			speedY: { min: 80, max: 160 },
@@ -169,7 +163,8 @@ class Level extends Phaser.Scene {
 			deathZone: { type: 'onEnter', source: deathZone },
 		});
 		const emitter2 = particles2.createEmitter({
-			x: { min: 0, max: 1920 * 2 },
+			x: { min: 0, max: this.cameras.main.width * 2 },
+			y: { min: 0, max: this.cameras.main.height / 2 },
 			lifespan: 20000,
 			speedX: { min: -300, max: -200 },
 			speedY: { min: 50, max: 100 },
@@ -180,7 +175,8 @@ class Level extends Phaser.Scene {
 			deathZone: { type: 'onEnter', source: deathZone }
 		});
 		const emitter3 = particles3.createEmitter({
-			x: { min: 0, max: 1920 * 2 },
+			x: { min: 0, max: this.cameras.main.width * 2 },
+			y: { min: 0, max: this.cameras.main.height / 2 },
 			lifespan: 20000,
 			speedX: { min: -300, max: -200 },
 			speedY: { min: 40, max: 80 },
@@ -264,8 +260,27 @@ class Level extends Phaser.Scene {
 			this.physics.pause();
 		}
 	}
+	mobileResponsive = () => {
+		this.btn_icon.setPosition(this.cameras.main.width - 103, 103);
+		this.btn_pause.setPosition(this.cameras.main.width - 103, 103);
+		this.btn_pause.setScale(1.5);
+		this.btn_icon.setScale(1.5);
+		this.txt_message.setPosition(this.cameras.main.centerX, 300);
+	}
 	create() {
+		this.oSoundManager = new SoundManager(this);
+		if (window.innerWidth < 1050) {
+			this.background = this.add.tileSprite(0, 0, 1080, 1920, "bg-mobile");
+			this.background.setOrigin(0, 0);
+		} else {
+			this.background = this.add.tileSprite(0, 0, 1920, 1080, "background");
+			this.background.setOrigin(0, 0);
+
+		}
 		this.editorCreate();
+		if (window.innerWidth < 1050) {
+			this.mobileResponsive();
+		}
 		this.input.setDefaultCursor('default');
 		this.aPlatformParticles = [
 			this.add.particles("particle1"),
@@ -287,9 +302,10 @@ class Level extends Phaser.Scene {
 		this.isDown = false;
 
 		this.btn_pause.setInteractive();
-
-		this.btn_pause.on('pointerover', () => this.pointerOver(1));
-		this.btn_pause.on('pointerout', () => this.pointerOut(1));
+		if (window.innerWidth >= 1050) {
+			this.btn_pause.on('pointerover', () => this.pointerOver(1));
+			this.btn_pause.on('pointerout', () => this.pointerOut(1));
+		}
 		this.tweens.add({
 			targets: this.txt_message,
 			scaleX: 1,
@@ -300,6 +316,7 @@ class Level extends Phaser.Scene {
 		this.btn_pause.on("pointerdown", () => {
 			this.input.setDefaultCursor('pointer');
 			this.btn_pause.disableInteractive();
+			this.oSoundManager.playSound(this.oSoundManager.btnTap, false);
 			this.btnAnimation(this.btn_pause, this.gamePlayPause);
 		});
 
@@ -322,8 +339,16 @@ class Level extends Phaser.Scene {
 			if (!g.length) {
 				if (!this.isGameStart) {
 					this.boost();
-				} else if (this.ball.y <= 700) {
-					this.boost();
+				} else {
+					if (window.innerWidth < 1050) {
+						if (this.ball.y <= 1300) {
+							this.boost();
+						}
+					} else {
+						if (this.ball.y <= 700) {
+							this.boost();
+						}
+					}
 				}
 			}
 			if (this.isGameStart) {
@@ -384,6 +409,7 @@ class Level extends Phaser.Scene {
 				duration: 200,
 			})
 			this.fallBlockParticles(platform.x, platform.y);
+			this.oSoundManager.playSound(this.oSoundManager.jump, false);
 			this.tweens.add({
 				targets: platform,
 				y: platform.y + 10,

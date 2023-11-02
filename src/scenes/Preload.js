@@ -23,7 +23,8 @@ class Preload extends Phaser.Scene {
 	editorCreate() {
 
 		// bg
-		this.add.image(960, 540, "bg");
+		const bg = this.add.image(-10, 0, "bg");
+		bg.setOrigin(0, 0);
 
 		// progress
 		const progress = this.add.text(960, 540, "", {});
@@ -57,21 +58,25 @@ class Preload extends Phaser.Scene {
 		btn_text.text = "PLAY";
 		btn_text.setStyle({ "align": "center", "color": "#2f233A", "fontSize": "45px", "fontStyle": "bold" });
 
-		// logo_1
-		this.add.image(960, 447, "logo");
+		// logo
+		const logo = this.add.image(960, 447, "logo");
 
 		// progress (components)
 		new PreloadText(progress);
 
+		this.bg = bg;
 		this.outerBar = outerBar;
 		this.innerBar = innerBar;
 		this.txt_progress = txt_progress;
 		this.btn_play = btn_play;
 		this.btn_text = btn_text;
+		this.logo = logo;
 
 		this.events.emit("scene-awake");
 	}
 
+	/** @type {Phaser.GameObjects.Image} */
+	bg;
 	/** @type {Phaser.GameObjects.Image} */
 	outerBar;
 	/** @type {Phaser.GameObjects.Image} */
@@ -82,6 +87,8 @@ class Preload extends Phaser.Scene {
 	btn_play;
 	/** @type {Phaser.GameObjects.Text} */
 	btn_text;
+	/** @type {Phaser.GameObjects.Image} */
+	logo;
 
 	/* START-USER-CODE */
 
@@ -115,36 +122,54 @@ class Preload extends Phaser.Scene {
 
 		this.editorPreload();
 
-		this.ball = this.physics.add.image(1035, 349, "character");
+		this.oSoundManager = new SoundManager(this);
+
+		this.ball = this.physics.add.image(this.cameras.main.centerX + 75, 349, "character");
 		this.ball.body.setBounce(1);
 		this.ball.setOffset(0, -10)
 		this.ball.setOrigin(0.5, 1)
 
-		this.box = this.physics.add.image(1035, 585, "");
+		this.box = this.physics.add.image(this.cameras.main.centerX + 75, 585, "");
 		this.box.setVisible(false);
 		this.box.setSize(150, 160);
 		this.box.setImmovable();
 
+		if (window.innerWidth < 1050) {
+			this.logo.setX(this.cameras.main.centerX);
+			// this.bg.setX(this.cameras.main.centerX);
+			this.bg.setScale(1.778);
+			this.btn_play.setPosition(this.cameras.main.centerX, this.cameras.main.height - 400);
+			this.btn_text.setPosition(this.btn_play.x + 25, this.btn_play.y - 3);
+			this.btn_play.setScale(1.5, 1.5)
+			this.btn_text.setScale(1.5, 1.5)
+			this.outerBar.setPosition(this.btn_play.x, this.btn_play.y);
+			this.innerBar.setPosition(this.outerBar.x - 219, this.outerBar.y - 10);
+			this.txt_progress.setPosition(this.outerBar.x, this.outerBar.y - 11)
+		}
+
 		this.physics.add.collider(this.box, this.ball)
 
 		this.btn_play.setInteractive().on('pointerdown', () => {
+			this.oSoundManager.playSound(this.oSoundManager.btnTap, false);
+			const scale = this.btn_play.scale;
 			this.tweens.add({
 				targets: [this.btn_play, this.btn_text],
-				scaleX: 0.8,
-				scaleY: 0.8,
+				scaleX: scale - 0.15,
+				scaleY: scale - 0.15,
 				duration: 50,
 				yoyo: true,
 				onComplete: () => {
-					this.btn_play.setScale(1);
-					this.btn_text.setScale(1);
+					this.btn_play.setScale(scale);
+					this.btn_text.setScale(scale);
 					this.scene.stop("Preload");
 					this.scene.start("Level");
 				}
 			});
 		})
-
-		this.btn_play.setInteractive().on('pointerover', () => this.pointerOver());
-		this.btn_play.setInteractive().on('pointerout', () => this.pointerOut());
+		if (window.innerWidth >= 1050) {
+			this.btn_play.setInteractive().on('pointerover', () => this.pointerOver());
+			this.btn_play.setInteractive().on('pointerout', () => this.pointerOut());
+		}
 
 		this.isGameLoaded1 = false;
 		this.isGameLoaded2 = false;

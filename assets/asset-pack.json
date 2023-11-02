@@ -17,6 +17,11 @@
                 "key": "ball-up"
             },
             {
+                "url": "assets/images/bg-mobile.png",
+                "type": "image",
+                "key": "bg-mobile"
+            },
+            {
                 "url": "assets/images/block.png",
                 "type": "image",
                 "key": "block"

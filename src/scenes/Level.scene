@@ -10,20 +10,6 @@
     },
     "displayList": [
         {
-            "type": "TileSprite",
-            "id": "dc9f858c-5519-4b47-994c-63354eb9eea7",
-            "label": "background",
-            "scope": "CLASS",
-            "components": [],
-            "texture": {
-                "key": "background"
-            },
-            "originX": 0,
-            "originY": 0,
-            "width": 1920,
-            "height": 1080
-        },
-        {
             "type": "Container",
             "id": "499c6107-98d6-4e59-b835-6931b705b205",
             "label": "container_particles",

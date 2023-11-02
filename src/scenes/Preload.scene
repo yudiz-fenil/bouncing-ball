@@ -16,12 +16,14 @@
             "type": "Image",
             "id": "127624ad-88b9-41d2-9914-b3ee7c6346e3",
             "label": "bg",
+            "scope": "CLASS",
             "components": [],
             "texture": {
                 "key": "bg"
             },
-            "x": 960,
-            "y": 540
+            "x": -10,
+            "originX": 0,
+            "originY": 0
         },
         {
             "type": "Text",
@@ -115,7 +117,8 @@
         {
             "type": "Image",
             "id": "b02b5cd3-fb3a-444c-b320-869f4cfb203e",
-            "label": "logo_1",
+            "label": "logo",
+            "scope": "CLASS",
             "components": [],
             "texture": {
                 "key": "logo"
